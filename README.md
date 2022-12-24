@@ -11,7 +11,7 @@ Easily get up-to-date weather forecasts for any city in the world. Simply use th
 
 **Automatic Installation Script:**
 
-`curl -s https://raw.githubusercontent.com/Sudo-Ivan/.sudo/main/getmyweatherbot.sh | bash`
+`WIP`
 
 **Manual:**
 
