@@ -85,7 +85,7 @@ class Weather(commands.Cog, name="weather"):
 
         #Define wind direction and speed conversion
         wind_direction = get_wind_direction(windDirection)
-        wind_speed_str = windSpeed * 2.23693629 if unit == 'imperial' else windSpeed
+        wind_speed_str = str(windSpeed) if unit == 'imperial' else str(windSpeed)
 
         # Define units for temperature and wind
         temp_units_str = ' F' if unit == 'imperial' else ' C'
