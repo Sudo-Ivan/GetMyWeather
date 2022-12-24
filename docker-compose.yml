@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  bot:
+    image: <image name>
+    environment:
+      - TOKEN=<bot token>
+      - APPLICATION_ID=<discord bot application id>
+      - OWNER=<discord bot owner>
+      - SYNC_COMMANDS_GLOBALLY=<true or false>
+      - OWM_API_KEY=<openweathermap api key>
+    volumes:
+      - ./:/app
+    working_dir: /app
+  
