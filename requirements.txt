@@ -2,7 +2,6 @@ requests
 datetime
 discord.py
 aiohttp
-aiosqlite
 python-dotenv
 pytz
 setuptools==65.5.1
