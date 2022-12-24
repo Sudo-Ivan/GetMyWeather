@@ -3,6 +3,10 @@ version: '3'
 services:
   bot:
     image: <image name>
+    deploy:
+      cap_drop:
+        - NET_RAW
+        - SYS_ADMIN
     environment:
       - TOKEN=<bot token>
       - APPLICATION_ID=<discord bot application id>
