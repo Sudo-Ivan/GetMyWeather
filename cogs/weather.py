@@ -60,7 +60,7 @@ class Weather(commands.Cog, name="weather"):
         sunsetTimestamp = json.loads(jsonOutput)['current']['sunset']
         sunrise = datetime.fromtimestamp(sunriseTimestamp)
         sunset = datetime.fromtimestamp(sunsetTimestamp)
-        localtime = json.loads(jsonOutput)['timezone']
+        localtime = json.loads(jsonOutput)['timezone_offset']
 
         def get_wind_direction(degrees):
             # Convert degrees to a value between 0 and 360
@@ -87,7 +87,14 @@ class Weather(commands.Cog, name="weather"):
         wind_direction = get_wind_direction(windDirection)
         units_str = ' F' if unit == 'imperial' else ' C'
 
-        local_time = datetime.utcnow().timetz(localtime)
+        # Convert the timezone value to a timezone object
+        timezone = pytz.FixedOffset(localtime / 3600)
+
+        # Convert the current UTC time to the local time in the city
+        now = datetime.utcnow()
+        local_time = timezone.localize(now)
+
+        # Format the local time as a string
         local_time_str = local_time.strftime('%H:%M:%S')
         # Determines how detailed the response should be with argument 4, and responds accordingly.
         # This one has embeds, instead of plain text
