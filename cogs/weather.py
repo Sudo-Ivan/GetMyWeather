@@ -95,7 +95,7 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity, value = 'There will be **' + str(weatherDescription) + '** \nwith an average temperature of **' + str(dayTemp) + '°** celsius in the day,\nand **' + str(nightTemp) + '°** in the night.\nthe minimum temperature being **' + str(minTemp) + '°** \nand the maximum temperature being **' + str(maxTemp) + '°**.\nThe probability of precipitation is **' + str(PoP) + '**.\nThe sun will rise at **' + str(sunrise) + '** \nand set at **' + str(sunset) + '**.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity, value = 'There will be **' + str(weatherDescription) + '** \nwith an average temperature of **' + str(dayTemp) + '°** celsius in the day,\nand **' + str(nightTemp) + '°** in the night.\nthe minimum temperature being **' + str(minTemp) + '°** \nand the maximum temperature being **' + str(maxTemp) + '°**.\nThe probability of precipitation is **' + str(PoP) + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**.')
 
             embed.set_footer(text = 'Powered by OpenWeatherMap')
 
@@ -120,7 +120,7 @@ class Weather(commands.Cog, name="weather"):
 
         # Prints the commands that someone has done to the terminal window, with the time. eg.    12:30  -  Username#1111 ran the command '~forecast test test 1 basic'.
         print(now.strftime('%H:%M') + '  -  ' + str(ctx.message.author) + ' ran the commmand \'' + str(ctx.message.content) + '\'')
-        print('')
+        print("weather command successfully executed")
 
 async def setup(bot):
     await bot.add_cog(Weather(bot))
