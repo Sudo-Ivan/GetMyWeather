@@ -60,7 +60,7 @@ class Weather(commands.Cog, name="weather"):
         sunsetTimestamp = json.loads(jsonOutput)['current']['sunset']
         sunrise = datetime.fromtimestamp(sunriseTimestamp)
         sunset = datetime.fromtimestamp(sunsetTimestamp)
-        localtime = datetime.fromtimestamp(json.loads(jsonOutput)['timezone'])
+        localtime = json.loads(jsonOutput)['timezone']
 
         def get_wind_direction(degrees):
             # Convert degrees to a value between 0 and 360
