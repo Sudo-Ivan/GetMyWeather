@@ -60,7 +60,7 @@ class Weather(commands.Cog, name="weather"):
         sunsetTimestamp = json.loads(jsonOutput)['current']['sunset']
         sunrise = datetime.fromtimestamp(sunriseTimestamp)
         sunset = datetime.fromtimestamp(sunsetTimestamp)
-        localtime = json.loads(jsonOutput)['timezone_offset']
+        timezoneoffset = json.loads(jsonOutput)['timezone_offset']
 
         def get_wind_direction(degrees):
             # Convert degrees to a value between 0 and 360
@@ -83,12 +83,16 @@ class Weather(commands.Cog, name="weather"):
             elif degrees >= 292.5 and degrees < 337.5:
                 return " NW "
 
-        #define wind direction and units
+        #Define wind direction and speed conversion
         wind_direction = get_wind_direction(windDirection)
-        units_str = ' F' if unit == 'imperial' else ' C'
+        wind_speed_str = windSpeed * 2.23693629 if unit == 'imperial' else windSpeed
+
+        # Define units for temperature and wind
+        temp_units_str = ' F' if unit == 'imperial' else ' C'
+        wind_units_str = ' mph' if unit == 'imperial' else ' m/s'
 
         # Convert the timezone value to a timezone object
-        timezone = pytz.FixedOffset(localtime / 3600)
+        timezone = pytz.FixedOffset(timezoneoffset / 3600)
 
         # Convert the current UTC time to the local time in the city
         now = datetime.utcnow()
@@ -96,7 +100,8 @@ class Weather(commands.Cog, name="weather"):
 
         # Format the local time as a string
         local_time_str = local_time.strftime('%H:%M:%S')
-        # Determines how detailed the response should be with argument 4, and responds accordingly.
+
+        # Determines how detailed the response and responds accordingly.
         # This one has embeds, instead of plain text
 
         if type == 'Basic' or type == 'basic':
@@ -110,7 +115,7 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + ' MPH ' + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
             embed.set_footer(text = 'Powered by OpenWeather API')
 
@@ -127,7 +132,7 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + ' MPH ' +'**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str +'**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
             embed.set_footer(text = 'Powered by OpenWeather API')
 
@@ -144,7 +149,7 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + ' MPH ' + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
             embed.set_footer(text = 'OpenWeather API')
 
