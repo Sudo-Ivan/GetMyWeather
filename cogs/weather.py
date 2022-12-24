@@ -19,7 +19,7 @@ class Weather(commands.Cog, name="weather"):
     name="forecast",
     description="Gets weather forecast from openweather",
     )
-    async def forecast(self, ctx, city: str, country: str, day: int, type: str = "detailed", unit: str = "imperial"):
+    async def forecast(self, ctx, city: str, country: str, type: str = "detailed", unit: str = "imperial"):
 
         apiKey = os.getenv('OWM_API_KEY')
 
@@ -39,30 +39,51 @@ class Weather(commands.Cog, name="weather"):
         longditude = json.loads(geocodingOutput)[0]['lon']
 
         # Make api request for the weather request.
-        requestParameters = {'lat': latitude, 'lon': longditude, 'exclude': 'current', 'units': unit, 'appid': apiKey}  
+        requestParameters = {'lat': latitude, 'lon': longditude, 'exclude': 'alerts', 'units': unit, 'appid': apiKey}  
         requestUrl = requests.get('https://api.openweathermap.org/data/2.5/onecall', params = requestParameters)
 
         # Get json data for weather request.
         jsonOutput = requestUrl.content.decode()
 
-        # Find useful info (with argument 3 to define day).
-        weatherDescription = json.loads(jsonOutput)['daily'][int(day)]['weather'][0]['description']
-        dayTemp = json.loads(jsonOutput)['daily'][int(day)]['temp']['day']#||||||||||||||||||||||||
-        nightTemp = json.loads(jsonOutput)['daily'][int(day)]['temp']['night']#||||||||||||||||||||
-        weatherIcon = json.loads(jsonOutput)['daily'][int(day)]['weather'][0]['icon']#|||||||||||||
-        minTemp = json.loads(jsonOutput)['daily'][int(day)]['temp']['min']#||||||||||||||||||||||||
-        maxTemp = json.loads(jsonOutput)['daily'][int(day)]['temp']['max']#||||||||||||||||||||||||
-        PoP = json.loads(jsonOutput)['daily'][int(day)]['pop']#||||||||||||||||||||||||||||||||||||
-        uvi =  json.loads(jsonOutput)['daily'][int(day)]['uvi']#|||||||||||||||||||||||||||||||||||
-        pressure =  json.loads(jsonOutput)['daily'][int(day)]['pressure']#|||||||||||||||||||||||||
-        dewPoint = json.loads(jsonOutput)['daily'][int(day)]['dew_point']#|||||||||||||||||||||||||
-        windSpeed = json.loads(jsonOutput)['daily'][int(day)]['wind_speed']#|||||||||||||||||||||||
-        windDirection = json.loads(jsonOutput)['daily'][int(day)]['wind_deg']#|||||||||||||||||||||
-        timestampForSunrise = json.loads(jsonOutput)['daily'][int(day)]['sunrise']#||||||||||||||||
-        timestampForSunset = json.loads(jsonOutput)['daily'][int(day)]['sunset']#||||||||||||||||||
-        sunrise = datetime.fromtimestamp(timestampForSunrise)#||||||||||||||||||||||||||||||||||||||
-        sunset = datetime.fromtimestamp(timestampForSunset)#||||||||||||||||||||||||||||||||||||||||
+        currentTemperature = json.loads(jsonOutput)['current']['temp']
+        feelsLikeTemperature = json.loads(jsonOutput)['current']['feels_like']
+        weatherDescription = json.loads(jsonOutput)['current']['weather'][0]['description']
+        weatherIcon = json.loads(jsonOutput)['current']['weather'][0]['icon']
+        pressure = json.loads(jsonOutput)['current']['pressure']
+        humidity = json.loads(jsonOutput)['current']['humidity']
+        windSpeed = json.loads(jsonOutput)['current']['wind_speed']
+        windDirection = json.loads(jsonOutput)['current']['wind_deg']
+        cloudCoverage = json.loads(jsonOutput)['current']['clouds']
+        visibility = json.loads(jsonOutput)['current']['visibility']
+        sunriseTimestamp = json.loads(jsonOutput)['current']['sunrise']
+        sunsetTimestamp = json.loads(jsonOutput)['current']['sunset']
+        sunrise = datetime.fromtimestamp(sunriseTimestamp)
+        sunset = datetime.fromtimestamp(sunsetTimestamp)
 
+        def get_wind_direction(degrees):
+            # Convert degrees to a value between 0 and 360
+            degrees = (degrees + 360) % 360
+            # Determine the wind direction based on the degree value
+            if degrees >= 337.5 or degrees < 22.5:
+                return " N "
+            elif degrees >= 22.5 and degrees < 67.5:
+                return " NE "
+            elif degrees >= 67.5 and degrees < 112.5:
+                return " E "
+            elif degrees >= 112.5 and degrees < 157.5:
+                return " SE "
+            elif degrees >= 157.5 and degrees < 202.5:
+                return " S "
+            elif degrees >= 202.5 and degrees < 247.5:
+                return " SW "
+            elif degrees >= 247.5 and degrees < 292.5:
+                return " W "
+            elif degrees >= 292.5 and degrees < 337.5:
+                return " NW "
+
+        wind_direction = get_wind_direction(windDirection)
+        timenow_str = now.strftime("%H:%M:%S")
+        units_str = ' F ' if unit == 'imperial' else ' C '
 
         # Determines how detailed the response should be with argument 4, and responds accordingly.
         # This one has embeds, instead of plain text
@@ -78,9 +99,9 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity, value = 'There will be **' + str(weatherDescription) + '** \nwith an average temperature of\n**' + str(dayTemp) + '°** celsius.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ' Time of Request ' + timenow_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + units_str + '°**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
-            embed.set_footer(text = 'Powered by OpenWeatherMap')
+            embed.set_footer(text = 'Powered by OpenWeather API')
 
             await ctx.send(embed = embed)
 
@@ -95,9 +116,9 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity, value = 'There will be **' + str(weatherDescription) + '** \nwith an average temperature of **' + str(dayTemp) + '°** celsius in the day,\nand **' + str(nightTemp) + '°** in the night.\nthe minimum temperature being **' + str(minTemp) + '°** \nand the maximum temperature being **' + str(maxTemp) + '°**.\nThe probability of precipitation is **' + str(PoP) + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ' Time of Request ' + timenow_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + units_str + '°**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
-            embed.set_footer(text = 'Powered by OpenWeatherMap')
+            embed.set_footer(text = 'Powered by OpenWeather API')
 
             await ctx.send(embed = embed)
 
@@ -112,9 +133,9 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity, value = 'There will be **' + str(weatherDescription) + '** \nwith an average temperature of\n**' + str(dayTemp) + '°** celsius in the day,\nand **' + str(nightTemp) + '°** in the night.\nthe minimum temperature being **' + str(minTemp) + '°** \nand the maximum temperature being **' + str(maxTemp) + '°**.\nThe probability of precipitation is **' + str(PoP) + '**.\nThe sun will rise at **' + str(sunrise) + '** \nand set at **' + str(sunset) + '**.\nThere is a uvi of **' + str(uvi) + '**,\na dew point of **' + str(dewPoint) + '°**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + '** m/s,\nand the wind direction is **' + str(windDirection) + '°**.')
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ' Time of Request ' + timenow_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + units_str + '°**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
-            embed.set_footer(text = 'Powered by OpenWeatherMap')
+            embed.set_footer(text = 'OpenWeather API')
 
             await ctx.send(embed = embed)
 
