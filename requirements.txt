@@ -3,3 +3,4 @@ datetime
 discord.py
 aiohttp
 aiosqlite
+python-dotenv
