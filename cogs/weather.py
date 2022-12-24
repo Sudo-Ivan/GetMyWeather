@@ -97,7 +97,7 @@ class Weather(commands.Cog, name="weather"):
 
             embed.set_author(name = 'Requested by ' + ctx.author.display_name)
             
-            embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
+            embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
             embed.add_field(name = 'Weather Report for ' + capitalisedCity + ' Time of Request ' + timenow_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + units_str + '°**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + ' MPH ' + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
@@ -114,7 +114,7 @@ class Weather(commands.Cog, name="weather"):
 
             embed.set_author(name = 'Requested by ' + ctx.author.display_name)
             
-            embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
+            embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
             embed.add_field(name = 'Weather Report for ' + capitalisedCity + ' Time of Request ' + timenow_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + units_str + '°**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + ' MPH ' +'**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
@@ -131,7 +131,7 @@ class Weather(commands.Cog, name="weather"):
 
             embed.set_author(name = 'Requested by ' + ctx.author.display_name)
             
-            embed.set_thumbnail(url = 'http://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
+            embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
             
             embed.add_field(name = 'Weather Report for ' + capitalisedCity + ' Time of Request ' + timenow_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + units_str + '°**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '** atm.\nThe wind speed is **' + str(windSpeed) + ' MPH ' + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
