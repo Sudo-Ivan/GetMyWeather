@@ -9,13 +9,9 @@ Easily get up-to-date weather forecasts for any city in the world. Simply use th
 
 ### **How to self host:**
 
-**Automatic Script (Non-Docker):**
+**Automatic Installation Script:**
 
-`Soon`
-
-**Automatic Script (Docker)**
-
-`Soon`
+`curl -s https://raw.githubusercontent.com/Sudo-Ivan/.sudo/main/getmyweatherbot.sh | bash`
 
 **Manual:**
 
