@@ -1,6 +1,7 @@
 ## GetMyWeather Bot
 
-`Current Version 1.0`
+`Current Bot Version 1.1.0`
+`Python Version 3.10`
 
 **Are you tired of getting drenched in the rain without an umbrella, or being stuck inside on a beautiful day because of a surprise thunderstorm? Say no more! Weather Bot has got your back.**
 
@@ -8,7 +9,11 @@ Easily get up-to-date weather forecasts for any city in the world. Simply use th
 
 ### **How to self host:**
 
-**Automatic Script:**
+**Automatic Script (Non-Docker):**
+
+`Soon`
+
+**Automatic Script (Docker)**
 
 `Soon`
 
