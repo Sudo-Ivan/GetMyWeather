@@ -3,6 +3,7 @@
 ![Preview Image](https://cdn.statically.io/gh/Sudo-Ivan/MyWebsite-Assets/main/images/bots/GetMyWeather/getmyweatherpreview.png)
 
 [![Docker Image CI](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml)
+[![CodeQL](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/codeql.yml)
 
 `Current Bot Version 1.2.0`
 `Python Version 3.10`
