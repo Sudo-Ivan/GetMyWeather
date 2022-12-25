@@ -1,5 +1,9 @@
 ## GetMyWeather Bot
 
+![Preview Image](https://cdn.statically.io/gh/Sudo-Ivan/MyWebsite-Assets/main/images/bots/GetMyWeather/getmyweatherpreview.png)
+
+[![Docker Image CI](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml)
+
 `Current Bot Version 1.1.0`
 `Python Version 3.10`
 
@@ -9,13 +13,9 @@ Easily get up-to-date weather forecasts for any city in the world. Simply use th
 
 ### **How to self host:**
 
-**Automatic Script (Non-Docker):**
+**Automatic Installation Script:**
 
-`Soon`
-
-**Automatic Script (Docker)**
-
-`Soon`
+`WIP`
 
 **Manual:**
 
