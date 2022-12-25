@@ -2,6 +2,8 @@
 
 ![Preview Image](https://cdn.statically.io/gh/Sudo-Ivan/MyWebsite-Assets/main/images/bots/GetMyWeather/getmyweatherpreview.png)
 
+[![Docker Image CI](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml/badge.svg)](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml)
+
 `Current Bot Version 1.1.0`
 `Python Version 3.10`
 
