@@ -14,6 +14,12 @@
 
 Easily get up-to-date weather forecasts for any city in the world. Simply use the discord slash command `/forcast` followed by the city and country you want to get the forecast for, and Weather Bot will provide you with all the information you need to plan your day.
 
+Additionally,
+
+There is a optional to set to metric
+
+`/forecast city:chicago country:usa unit:metric`
+
 ### **How to self host:**
 
 **Docker:**
