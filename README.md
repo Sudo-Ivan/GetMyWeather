@@ -27,7 +27,7 @@ Make sure you have Python 3.10 installed.
 1. Clone the repository to your local machine or server `git clone https://github.com/Sudo-Ivan/GetMyWeather.git`.
 2. `cd GetMyWeather` - Change to Bot Directory
 3. `pip3 install -r requirements.txt`. - Install Dependencies
-4. `cp .envexample .env` - Copy .envexample to .env and fill in the required info.
+4. `cp .example-env .env` - Copy .example-env to .env and fill in the required info.
 6. Run the bot using `python3 bot.py`.
 
 More instruction and documentation coming in the future. This is the beggining to a pretty decent weather bot.
