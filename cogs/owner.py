@@ -3,8 +3,6 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 
-from helpers import checks
-
 class Owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot
@@ -14,7 +12,6 @@ class Owner(commands.Cog, name="owner"):
         description="Synchonizes the slash commands.",
     )
     @app_commands.describe(scope="The scope of the sync. Can be `global` or `guild`")
-    @checks.is_owner()
     async def sync(self, context: Context, scope: str) -> None:
         """
         Synchonizes the slash commands.
@@ -54,7 +51,6 @@ class Owner(commands.Cog, name="owner"):
         description="Unsynchonizes the slash commands.",
     )
     @app_commands.describe(scope="The scope of the sync. Can be `global`, `current_guild` or `guild`")
-    @checks.is_owner()
     async def unsync(self, context: Context, scope: str) -> None:
         """
         Unsynchonizes the slash commands.
@@ -95,7 +91,6 @@ class Owner(commands.Cog, name="owner"):
         description="Load a cog",
     )
     @app_commands.describe(cog="The name of the cog to load")
-    @checks.is_owner()
     async def load(self, context: Context, cog: str) -> None:
         """
         The bot will load the given cog.
@@ -125,7 +120,6 @@ class Owner(commands.Cog, name="owner"):
         description="Unloads a cog.",
     )
     @app_commands.describe(cog="The name of the cog to unload")
-    @checks.is_owner()
     async def unload(self, context: Context, cog: str) -> None:
         """
         The bot will unload the given cog.
@@ -155,7 +149,6 @@ class Owner(commands.Cog, name="owner"):
         description="Reloads a cog.",
     )
     @app_commands.describe(cog="The name of the cog to reload")
-    @checks.is_owner()
     async def reload(self, context: Context, cog: str) -> None:
         """
         The bot will reload the given cog.
@@ -184,7 +177,6 @@ class Owner(commands.Cog, name="owner"):
         name="shutdown",
         description="Make the bot shutdown.",
     )
-    @checks.is_owner()
     async def shutdown(self, context: Context) -> None:
         """
         Shuts down the bot.
@@ -203,7 +195,6 @@ class Owner(commands.Cog, name="owner"):
         description="The bot will say anything you want.",
     )
     @app_commands.describe(message="The message that should be repeated by the bot")
-    @checks.is_owner()
     async def say(self, context: Context, *, message: str) -> None:
         """
         The bot will say anything you want.
@@ -218,7 +209,6 @@ class Owner(commands.Cog, name="owner"):
         description="The bot will say anything you want, but within embeds.",
     )
     @app_commands.describe(message="The message that should be repeated by the bot")
-    @checks.is_owner()
     async def embed(self, context: Context, *, message: str) -> None:
         """
         The bot will say anything you want, but using embeds.

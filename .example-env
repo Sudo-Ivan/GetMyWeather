@@ -1,7 +1,7 @@
-token=
-prefix=
-permissions=
-application_id=
-owner=
-sync_commands_globally=true/false
-OWM_API_KEY=
+token=<bot token>
+prefix=<leave empty>
+permissions=<discord bot permissions>
+application_id=<discord bot application_id>
+owner=<discord owner id>
+sync_commands_globally=<true/false>
+OWM_API_KEY=<openweather API Key>

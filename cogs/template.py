@@ -1,8 +1,6 @@
 from discord.ext import commands
 from discord.ext.commands import Context
 
-from helpers import checks
-
 
 # Here we name the cog and create a new class for the cog.
 class Template(commands.Cog, name="template"):
