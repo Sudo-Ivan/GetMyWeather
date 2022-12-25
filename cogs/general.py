@@ -1,5 +1,4 @@
 import platform
-import random
 
 import aiohttp
 import discord

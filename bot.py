@@ -5,7 +5,7 @@ import random
 import sys
 import dotenv
 
-#import aiosqlite
+
 import discord
 from discord.ext import commands, tasks
 from discord.ext.commands import Bot, Context
@@ -61,13 +61,6 @@ If you want to use prefix commands, make sure to also enable the intent below in
 # intents.message_content = True
 
 bot = Bot(command_prefix=commands.when_mentioned_or(os.getenv('prefix')), intents=intents, help_command=None)
-
-#async def init_db():
-#    async with aiosqlite.connect(f"{os.path.realpath(os.path.dirname(__file__))}/database/database.db") as db:
-#        with open(f"{os.path.realpath(os.path.dirname(__file__))}/database/schema.sql") as file:
-#            await db.executescript(file.read())
-#        await db.commit()
-
 
 """
 Create a bot variable to access the config file in cogs so that you don't need to import it every time.
@@ -212,6 +205,5 @@ async def load_cogs() -> None:
                 print(f"Failed to load extension {extension}\n{exception}")
 
 
-#asyncio.run(init_db())
 asyncio.run(load_cogs())
 bot.run(os.getenv('token'))
