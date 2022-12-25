@@ -143,10 +143,6 @@ async def on_command_error(context: Context, error) -> None:
         )
         await context.send(embed=embed)
     elif isinstance(error, exceptions.UserBlacklisted):
-        """
-        The code here will only execute if the error is an instance of 'UserBlacklisted', which can occur when using
-        the  check in your command, or you can raise the error by yourself.
-        """
         embed = discord.Embed(
             title="Error!",
             description="You are blacklisted from using the bot.",
@@ -154,9 +150,6 @@ async def on_command_error(context: Context, error) -> None:
         )
         await context.send(embed=embed)
     elif isinstance(error, exceptions.UserNotOwner):
-        """
-        Same as above, just for the @checks.is_owner() check.
-        """
         embed = discord.Embed(
             title="Error!",
             description="You are not the owner of the bot!",
