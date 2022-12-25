@@ -20,4 +20,4 @@ jobs:
       if: success()
       run: |
         echo ${{ secrets.DOCKER_PAT }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-        docker push ivan2224/getmyweatherbot:latest
+        docker push getmyweatherbot:latest
