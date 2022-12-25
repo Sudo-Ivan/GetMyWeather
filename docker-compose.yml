@@ -10,6 +10,7 @@ services:
     environment:
       - TOKEN=<bot token>
       - APPLICATION_ID=<discord bot application id>
+      - PREFIX=<bot prefix>
       - OWNER=<discord bot owner>
       - SYNC_COMMANDS_GLOBALLY=<true or false>
       - OWM_API_KEY=<openweathermap api key>
