@@ -8,7 +8,8 @@ on:
       - 'LICENSE'
       - 'CODE_OF_CONDUCT.md'
       - 'CONTRIBUTING.md'
-      - 'SUMMARY.md'
+      - '/docs/**'
+      - '/.github/**'
   pull_request:
     branches: [ "main"]
 

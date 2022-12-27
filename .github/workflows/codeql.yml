@@ -19,7 +19,8 @@ on:
       - 'LICENSE'
       - 'CODE_OF_CONDUCT.md'
       - 'CONTRIBUTING.md'
-      - 'SUMMARY.md'
+      - '/docs/**'
+      - '/.github/**'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
