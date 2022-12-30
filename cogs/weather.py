@@ -1,13 +1,12 @@
-from discord.ext import commands
-from discord.ext.commands import Context
-
+import time
 import discord
 import requests
 import os
-import dotenv
 import json
-import pytz
 
+from discord.ext import commands
+from discord.ext.commands import Context
+from modules import windcalc
 from datetime import datetime
 
 
@@ -60,50 +59,20 @@ class Weather(commands.Cog, name="weather"):
         sunsetTimestamp = json.loads(jsonOutput)['current']['sunset']
         sunrise = datetime.fromtimestamp(sunriseTimestamp)
         sunset = datetime.fromtimestamp(sunsetTimestamp)
-        timezoneoffset = json.loads(jsonOutput)['timezone_offset']
 
-        def get_wind_direction(degrees):
-            # Convert degrees to a value between 0 and 360
-            degrees = (degrees + 360) % 360
-            # Determine the wind direction based on the degree value
-            if degrees >= 337.5 or degrees < 22.5:
-                return " N "
-            elif degrees >= 22.5 and degrees < 67.5:
-                return " NE "
-            elif degrees >= 67.5 and degrees < 112.5:
-                return " E "
-            elif degrees >= 112.5 and degrees < 157.5:
-                return " SE "
-            elif degrees >= 157.5 and degrees < 202.5:
-                return " S "
-            elif degrees >= 202.5 and degrees < 247.5:
-                return " SW "
-            elif degrees >= 247.5 and degrees < 292.5:
-                return " W "
-            elif degrees >= 292.5 and degrees < 337.5:
-                return " NW "
-
-        #Define wind direction and speed conversion
-        wind_direction = get_wind_direction(windDirection)
+        #DCalculate Wind Direction Using windcalc module and convert speed
+        wind_direction = windcalc.find_wind_direction(windDirection)
         wind_speed_str = str(windSpeed) if unit == 'imperial' else str(windSpeed)
 
         # Define units for temperature and wind
         temp_units_str = ' F' if unit == 'imperial' else ' C'
         wind_units_str = ' mph' if unit == 'imperial' else ' m/s'
 
-        # Convert the timezone value to a timezone object
-        timezone = pytz.FixedOffset(timezoneoffset / 3600)
-
-        # Convert the current UTC time to the local time in the city
-        now = datetime.utcnow()
-        local_time = timezone.localize(now)
-
         # Format the local time as a string
-        local_time_str = local_time.strftime('%H:%M:%S')
+        local_time_str = time.strftime('%H:%M:%S')
 
         # Determines how detailed the response and responds accordingly.
         # This one has embeds, instead of plain text
-
         if type == 'Basic' or type == 'basic':
             
             embed = discord.Embed(
@@ -135,23 +104,6 @@ class Weather(commands.Cog, name="weather"):
             embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str +'**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
 
             embed.set_footer(text = 'Powered by OpenWeather API')
-
-            await ctx.send(embed = embed)
-
-        elif type == 'Very_Detailed' or type == 'Very_detailed' or type == 'very_detailed':
-
-            embed = discord.Embed(
-            title = ' ',
-
-            color = discord.Color.from_rgb(236, 110, 76))
-
-            embed.set_author(name = 'Requested by ' + ctx.author.display_name)
-            
-            embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png' )
-            
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise) + '** \nand rise at **' + str(sunset) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str + '**,\nand the wind direction is **' + str(windDirection) + wind_direction +'**.')
-
-            embed.set_footer(text = 'OpenWeather API')
 
             await ctx.send(embed = embed)
 
