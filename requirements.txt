@@ -3,5 +3,4 @@ datetime
 discord.py
 aiohttp
 python-dotenv
-pytz
 setuptools==65.5.1
