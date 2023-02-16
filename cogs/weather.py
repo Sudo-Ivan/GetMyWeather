@@ -62,7 +62,7 @@ class Weather(commands.Cog, name="weather"):
         sunsettimestamp = data['sunset']
 
         # Use geopy to get latitude and longitude
-        geolocator = Nominatim(user_agent="my-application")
+        geolocator = Nominatim(user_agent="getmyweatherapp")
         location = geolocator.geocode(f"{city}, {country}")
         latitude, longitude = location.latitude, location.longitude
 
