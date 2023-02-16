@@ -3,13 +3,11 @@ import discord
 import requests
 import os
 import json
-import pytz
 
 from discord.ext import commands
 from discord.ext.commands import Context
 from modules import windcalc
 from datetime import datetime
-from geopy.geocoders import Nominatim
 
 
 # Here we name the cog and create a new class for the cog.
@@ -61,15 +59,8 @@ class Weather(commands.Cog, name="weather"):
         sunrisetimestamp = data['sunrise']
         sunsettimestamp = data['sunset']
 
-        # Use geopy to get latitude and longitude
-        geolocator = Nominatim(user_agent="getmyweatherapp")
-        location = geolocator.geocode(f"{city}, {country}")
-        latitude, longitude = location.latitude, location.longitude
-
-        #using the above latitude and longitude, get the timezone and use that for sunrise and sunset
-        timezone = pytz.timezone(geolocator.reverse(f"{latitude}, {longitude}").raw['address']['timezone']['id'])
-        sunrise_time = datetime.fromtimestamp(sunrisetimestamp, tz=timezone).strftime('%H:%M:%S')
-        sunset_time = datetime.fromtimestamp(sunsettimestamp, tz=timezone).strftime('%H:%M:%S')
+        sunrise_time = datetime.fromtimestamp(sunrisetimestamp).strftime('%H:%M:%S')
+        sunset_time = datetime.fromtimestamp(sunsettimestamp).strftime('%H:%M:%S')
 
         #convert visibility int to string km (DEBUG)
         visibility = str(visibility / 1000) + 'km'
