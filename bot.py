@@ -92,7 +92,7 @@ async def status_task() -> None:
     """
     Setup the game status task of the bot
     """
-    statuses = ["Weatherman 2000", "Beyond Freezing", "Melting Earth"]
+    statuses = ["Flying Weather Balloons", "Detecting Weather Anomalies", "Causing Earthquakes"]
     await bot.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
