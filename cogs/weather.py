@@ -61,19 +61,12 @@ class Weather(commands.Cog, name="weather"):
         sunrisetimestamp = data['sunrise']
         sunsettimestamp = data['sunset']
 
-        def get_local_timezone(city, country):
-            geolocator = Nominatim(user_agent="my-app")
-            location = geolocator.geocode(f"{city}, {country}")
-            timezone = pytz.timezone(location.timezone)
-
-        # Convert sunrise and sunset timestamps to local time zone
-        tz = get_local_timezone(city, country)   # Replace with your local time zone
-        sunrise_time = datetime.fromtimestamp(sunrisetimestamp, tz).strftime('%H:%M:%S')
-        sunset_time = datetime.fromtimestamp(sunsettimestamp, tz).strftime('%H:%M:%S')
+        # Convert sunset and sunrise timestamps to UTC string
+        sunrise_time = datetime.utcfromtimestamp(sunrisetimestamp).strftime('%H:%M:%S')
+        sunset_time = datetime.utcfromtimestamp(sunsettimestamp).strftime('%H:%M:%S')
 
         #convert visibility int to string km (DEBUG)
         visibility = str(visibility / 1000) + 'km'
-
 
         if requestUrl.status_code != 200: # (DEBUG)
             await ctx.send('Error: ' + str(requestUrl.status_code))
