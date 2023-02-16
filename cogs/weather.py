@@ -93,7 +93,7 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weathericon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherdescription) + '** \nwith a current temperature of **' + str(currenttemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise_time) + '** \nand rise at **' + str(sunset_time) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str + '**,\nand the wind direction is **' + str(winddirection) + wind_direction +'**.' + '**.\nVisibility is **' + visibility)
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherdescription) + '** \nwith a current temperature of **' + str(currenttemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise_time) + '** \nand rise at **' + str(sunset_time) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str + '**,\nand the wind direction is **' + str(winddirection) + wind_direction +'**' + '**,\nVisibility is **' + visibility + '**.')
 
             embed.set_footer(text = 'Powered by OpenWeather API')
 
@@ -110,7 +110,7 @@ class Weather(commands.Cog, name="weather"):
             
             embed.set_thumbnail(url = 'https://openweathermap.org/img/wn/' + weathericon + '@2x.png' )
             
-            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherdescription) + '** \nwith a current temperature of **' + str(currenttemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise_time) + '** \nand rise at **' + str(sunset_time) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str +'**,\nand the wind direction is **' + str(winddirection) + wind_direction +'**.' + '**.\nVisibility is **' + visibility)
+            embed.add_field(name = 'Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str, value = 'There will be **' + str(weatherdescription) + '** \nwith a current temperature of **' + str(currenttemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunrise_time) + '** \nand rise at **' + str(sunset_time) + '**,\na Humidity of **' + str(humidity)+'% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str +'**,\nand the wind direction is **' + str(winddirection) + wind_direction +'**' + '**,\nVisibility is **' + visibility + '**.')
 
             embed.set_footer(text = 'Powered by OpenWeather API')
 
