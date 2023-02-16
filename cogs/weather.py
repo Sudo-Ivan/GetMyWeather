@@ -30,7 +30,7 @@ class Weather(commands.Cog, name="weather"):
         upperCaseCountry = country.upper()
 
         # Make api requests to geocode arguments 1 and 2, so we can use the OneCall api. 
-        geocodingParmeters = {'q': capitalisedCity + ',' + upperCaseCountry, 'appid': apiKey}
+        geocodingParmeters = {'q': f"{capitalisedCity},{upperCaseCountry}", 'appid': apiKey}
         geocodingUrl = requests.get('http://api.openweathermap.org/geo/1.0/direct', params = geocodingParmeters)
 
         geocodingOutput = geocodingUrl.content.decode()
@@ -45,20 +45,22 @@ class Weather(commands.Cog, name="weather"):
         # Get json data for weather request.
         jsonOutput = requestUrl.content.decode()
 
-        currentTemperature = json.loads(jsonOutput)['current']['temp']
-        feelsLikeTemperature = json.loads(jsonOutput)['current']['feels_like']
-        weatherDescription = json.loads(jsonOutput)['current']['weather'][0]['description']
-        weatherIcon = json.loads(jsonOutput)['current']['weather'][0]['icon']
-        pressure = json.loads(jsonOutput)['current']['pressure']
-        humidity = json.loads(jsonOutput)['current']['humidity']
-        windSpeed = json.loads(jsonOutput)['current']['wind_speed']
-        windDirection = json.loads(jsonOutput)['current']['wind_deg']
-        cloudCoverage = json.loads(jsonOutput)['current']['clouds']
-        visibility = json.loads(jsonOutput)['current']['visibility']
-        sunriseTimestamp = json.loads(jsonOutput)['current']['sunrise']
-        sunsetTimestamp = json.loads(jsonOutput)['current']['sunset']
-        sunrise = datetime.fromtimestamp(sunriseTimestamp)
-        sunset = datetime.fromtimestamp(sunsetTimestamp)
+        data = json.loads(jsonOutput)['current']
+        currentTemperature = data['temp']
+        feelsLikeTemperature = data['feels_like']
+        weatherDescription = data['weather'][0]['description']
+        weatherIcon = data['weather'][0]['icon']
+        pressure = data['pressure']
+        humidity = data['humidity']
+        windSpeed = data['wind_speed']
+        windDirection = data['wind_deg']
+        cloudCoverage = data['clouds']
+        visibility = data['visibility']
+        sunriseTimestamp = data['sunrise']
+        sunsetTimestamp = data['sunset']
+
+        sunrise = sunriseTimestamp
+        sunset = sunsetTimestamp
 
         #DCalculate Wind Direction Using windcalc module and convert speed
         wind_direction = windcalc.find_wind_direction(windDirection)
