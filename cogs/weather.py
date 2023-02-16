@@ -59,6 +59,10 @@ class Weather(commands.Cog, name="weather"):
         sunriseTimestamp = data['sunrise']
         sunsetTimestamp = data['sunset']
 
+        if requestUrl.status_code != 200:
+            await ctx.send('Error: ' + str(requestUrl.status_code))
+            return
+
         #DCalculate Wind Direction Using windcalc module and convert speed
         wind_direction = windcalc.find_wind_direction(windDirection)
         wind_speed_str = str(windSpeed) if unit == 'imperial' else str(windSpeed)
@@ -109,6 +113,21 @@ class Weather(commands.Cog, name="weather"):
         # Prints the commands that someone has done to the terminal window, with the time. eg.    12:30  -  Username#1111 ran the command '~forecast test test 1 basic'.
         print(now.strftime('%H:%M') + '  -  ' + str(ctx.message.author) + ' ran the commmand \'' + str(ctx.message.content) + '\'')
         print("weather command successfully executed")
+
+#if error with arguments, print error message
+    @forecast.error
+    async def forecast_error(self, ctx, error):
+        if isinstance(error, commands.BadArgument):
+            await ctx.send('Error: ' + str(error))
+        elif isinstance(error, commands.MissingRequiredArgument):
+            await ctx.send('Error: ' + str(error))
+        elif isinstance(error, commands.CommandInvokeError):
+            await ctx.send('Error: ' + str(error))
+        else:
+            await ctx.send('Error: ' + str(error))
+        
+        print(str(ctx.message.author) + ' ran the commmand \'' + str(ctx.message.content) + '\'') 
+        print("weather command failed to execute")
 
 async def setup(bot):
     await bot.add_cog(Weather(bot))
