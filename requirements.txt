@@ -4,5 +4,3 @@ discord.py
 aiohttp
 python-dotenv
 setuptools==65.5.1
-pytz
-geopy
