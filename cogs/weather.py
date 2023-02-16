@@ -62,8 +62,11 @@ class Weather(commands.Cog, name="weather"):
         sunrise_time = datetime.fromtimestamp(sunrisetimestamp).strftime('%H:%M:%S')
         sunset_time = datetime.fromtimestamp(sunsettimestamp).strftime('%H:%M:%S')
 
-        #convert visibility int to string km (DEBUG)
-        visibility = str(visibility / 1000) + 'km'
+        #convert visibility int to string based on unit
+        if unit == 'imperial':
+            visibility = str(visibility) + ' Mi'
+        else:
+            visibility = str(visibility / 1000) + ' Km'
 
         if requestUrl.status_code != 200: # (DEBUG)
             await ctx.send('Error: ' + str(requestUrl.status_code))
