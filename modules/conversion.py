@@ -82,3 +82,23 @@ def hpa_to_atm(hpa):
 def atm_to_hpa(atm):
     hpa = atm / 0.00098692326671601
     return hpa
+
+#visibility in meters to miles
+def meters_to_miles(meters):
+    miles = meters / 1609.34
+    return miles
+
+#visibility in miles to meters
+def miles_to_meters(miles):
+    meters = miles * 1609.34
+    return meters
+
+#visibility in miles to kilometers
+def miles_to_kilometers(miles):
+    kilometers = miles * 1.60934
+    return kilometers
+
+#visibility in kilometers to miles
+def kilometers_to_miles(kilometers):
+    miles = kilometers / 1.60934
+    return miles
