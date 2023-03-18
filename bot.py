@@ -92,7 +92,7 @@ async def status_task() -> None:
     """
     Setup the game status task of the bot
     """
-    statuses = ["Weatherman 2000", "Beyond Freezing", "Melting Earth"]
+    statuses = ["Flying Weather Balloons", "Detecting Weather Anomalies", "Causing Earthquakes"]
     await bot.change_presence(activity=discord.Game(random.choice(statuses)))
 
 
@@ -196,6 +196,27 @@ async def load_cogs() -> None:
             except Exception as e:
                 exception = f"{type(e).__name__}: {e}"
                 print(f"Failed to load extension {extension}\n{exception}")
+
+class AutoVersioning(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+        self.version = "1.0.0"
+
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("AutoVersioning is ready.")
+
+    @commands.command()
+    async def version(self, ctx):
+        await ctx.send(f"Current version is {self.version}")
+
+    @commands.command()
+    async def update(self, ctx):
+        self.version = "1.0.1"
+        await ctx.send(f"Updated version to {self.version}")
+
+def setup(bot):
+    bot.add_cog(AutoVersioning(bot))
 
 
 asyncio.run(load_cogs())
