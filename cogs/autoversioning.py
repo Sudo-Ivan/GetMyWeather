@@ -19,5 +19,5 @@ class AutoVersioning(commands.Cog):
         self.version = "1.0.1"
         await ctx.send(f"Updated version to {self.version}")
 
-def setup(bot):
-    bot.add_cog(AutoVersioning(bot))
+async def setup(bot):
+    await bot.add_cog(AutoVersioning(bot))
