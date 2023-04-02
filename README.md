@@ -2,8 +2,6 @@
 
 ![Preview Image](https://cdn.statically.io/gh/Sudo-Ivan/MyWebsite-Assets/main/images/bots/GetMyWeather/getmyweatherpreview.png)
 
-[![Run on Repl.it](https://repl.it/badge/github/Sudo-Ivan/GetMyWeather)](https://repl.it/github/Sudo-Ivan/GetMyWeather)
-
 [![Docker Image CI](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml/badge.svg?branch=main)](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/docker-image.yml)
 [![CodeQL](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/codeql.yml/badge.svg?branch=main)](https://github.com/Sudo-Ivan/GetMyWeather/actions/workflows/codeql.yml)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/Sudo-Ivan/GetMyWeather)
