@@ -15,7 +15,7 @@ class FuelCalc(commands.Cog):
         await ctx.send(f"Fuel: {fuel_quantity:.2f} {fuel_unit}.")
 
     @commands.hybrid_command()
-    async def uav_bingo(self, ctx, ppc_descent_fuel: float, br: float, distance_to_airbase: float, night: bool = False, ifr: bool = False):
+    async def uav_bingo(self, ctx, ppc_descent_fuel: float, br: float, distance_to_airbase: float, ground_speed: float, night: bool = False, ifr: bool = False):
         if night or ifr:
             remaining_fuel_mins = 45
         else:
@@ -23,9 +23,11 @@ class FuelCalc(commands.Cog):
 
         fuel_usage = br / 60  # Convert lbs per hour to lbs per minute
         remaining_fuel = fuel_usage * remaining_fuel_mins
-        fuel_for_distance = fuel_usage * (distance_to_airbase / br) * 60
-        emergency_fuel = 35
 
+        time_to_airbase = (distance_to_airbase / ground_speed) * 60  # Calculate time to airbase in minutes
+        fuel_for_distance = fuel_usage * time_to_airbase
+
+        emergency_fuel = 35
         bingo_fuel = ppc_descent_fuel + remaining_fuel + fuel_for_distance + emergency_fuel
         await ctx.send(f"UAV bingo fuel: {bingo_fuel:.2f} lbs.")
 
