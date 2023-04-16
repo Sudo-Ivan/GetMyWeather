@@ -2,10 +2,6 @@ import math
 import discord
 from discord.ext import commands
 
-class E6B(commands.Cog):
-    def __init__(self, bot):
-        self.bot = bot
-
     @commands.hybrid_command()
     async def wind_correction(self, ctx, tas: float, wind_speed: float, wind_direction: float, course: float):
         wind_angle = wind_direction - course
@@ -13,27 +9,36 @@ class E6B(commands.Cog):
         gs = tas * math.cos(wca) + wind_speed * math.cos(math.radians(wind_angle))
         wca = math.degrees(wca)
 
-        await ctx.send(f"Wind correction angle: {wca:.2f}°, Ground speed: {gs:.2f} knots")
+        embed = discord.Embed(title="Wind Correction", color=discord.Color.blue())
+        embed.add_field(name="Wind Correction Angle", value=f"{wca:.2f}°")
+        embed.add_field(name="Ground Speed", value=f"{gs:.2f} knots")
+        await ctx.send(embed=embed)
 
     @commands.hybrid_command()
     async def true_airspeed(self, ctx, ias: float, altitude: float, temperature: float):
         # Assuming temperature in Celsius, altitude in feet
         tas = ias * math.sqrt((273 + temperature) / (273 + (15 - 2 * altitude / 1000)))
 
-        await ctx.send(f"True airspeed: {tas:.2f} knots")
+        embed = discord.Embed(title="True Airspeed", color=discord.Color.blue())
+        embed.add_field(name="True Airspeed", value=f"{tas:.2f} knots")
+        await ctx.send(embed=embed)
 
     @commands.hybrid_command()
     async def density_altitude(self, ctx, pressure_altitude: float, temperature: float):
         # Assuming temperature in Celsius
         density_altitude = pressure_altitude + (120 * (temperature - 15))
 
-        await ctx.send(f"Density altitude: {density_altitude:.2f} ft")
+        embed = discord.Embed(title="Density Altitude", color=discord.Color.blue())
+        embed.add_field(name="Density Altitude", value=f"{density_altitude:.2f} ft")
+        await ctx.send(embed=embed)
 
     @commands.hybrid_command()
     async def pressure_altitude(self, ctx, altimeter_setting: float, altitude: float):
         pressure_altitude = (29.92 - altimeter_setting) * 1000 + altitude
 
-        await ctx.send(f"Pressure altitude: {pressure_altitude:.2f} ft")
+        embed = discord.Embed(title="Pressure Altitude", color=discord.Color.blue())
+        embed.add_field(name="Pressure Altitude", value=f"{pressure_altitude:.2f} ft")
+        await ctx.send(embed=embed)
 
     @commands.hybrid_command()
     async def wind_components(self, ctx, wind_speed: float, wind_direction: float, runway_heading: float):
@@ -41,7 +46,10 @@ class E6B(commands.Cog):
         headwind = wind_speed * math.cos(math.radians(wind_angle))
         crosswind = wind_speed * math.sin(math.radians(wind_angle))
 
-        await ctx.send(f"Headwind: {headwind:.2f} knots, Crosswind: {crosswind:.2f} knots")
+        embed = discord.Embed(title="Wind Components", color=discord.Color.blue())
+        embed.add_field(name="Headwind", value=f"{headwind:.2f} knots")
+        embed.add_field(name="Crosswind", value=f"{crosswind:.2f} knots")
+        await ctx.send(embed=embed)
 
     @commands.hybrid_command()
     async def time_distance(self, ctx, speed: float = None, time: float = None, distance: float = None):
