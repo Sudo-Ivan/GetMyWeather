@@ -14,7 +14,7 @@ class FuelCalc(commands.Cog):
 
         await ctx.send(f"Fuel: {fuel_quantity:.2f} {fuel_unit}.")
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(dm_only=True)
     async def uav_bingo(self, ctx, ppc_descent_fuel: float, br: float, distance_to_airbase: float, ground_speed: float, night: bool = False, ifr: bool = False):
         if night or ifr:
             remaining_fuel_mins = 45
