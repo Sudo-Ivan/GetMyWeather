@@ -6,7 +6,7 @@ class DRT(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(name="Distance Traveled",description="Get the Distance traveled.")
     async def distance(self, ctx, rate: float, time: float, unit_system: str = "aviation"):
         distance = rate * time / 60
         if unit_system.lower() == "metric":
@@ -17,7 +17,7 @@ class DRT(commands.Cog):
 
         await ctx.send(f"Distance traveled: {distance:.2f} {unit}.")
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(name="Time to Distance",description="Get the time to travel the distance.")
     async def time(self, ctx, distance: float, rate: float, unit_system: str = "aviation"):
         if unit_system.lower() == "metric":
             distance /= 1.852  # Convert kilometers to nautical miles
@@ -25,7 +25,7 @@ class DRT(commands.Cog):
         time = distance / rate * 60
         await ctx.send(f"Time to travel the distance: {time:.2f} minutes.")
 
-    @commands.hybrid_command()
+    @commands.hybrid_command(name="Rate of Travel",description="Get the rate of travel.")
     async def rate(self, ctx, distance: float, time: float, unit_system: str = "aviation", rate_unit: str = "knots"):
         if unit_system.lower() == "metric":
             distance /= 1.852  # Convert kilometers to nautical miles
