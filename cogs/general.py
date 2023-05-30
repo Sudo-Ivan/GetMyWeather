@@ -6,6 +6,7 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 
+
 class General(commands.Cog, name="general"):
     def __init__(self, bot):
         self.bot = bot
@@ -14,7 +15,6 @@ class General(commands.Cog, name="general"):
         name="help",
         description="List all commands the bot has loaded."
     )
-    
     async def help(self, context: Context) -> None:
         prefix = self.bot.config["prefix"]
         embed = discord.Embed(
@@ -35,7 +35,6 @@ class General(commands.Cog, name="general"):
         name="botinfo",
         description="Get some useful (or not) information about the bot.",
     )
-    
     async def botinfo(self, context: Context) -> None:
         """
         Get some useful (or not) information about the bot.
@@ -73,7 +72,6 @@ class General(commands.Cog, name="general"):
         name="serverinfo",
         description="Get some useful (or not) information about the server.",
     )
-    
     async def serverinfo(self, context: Context) -> None:
         """
         Get some useful (or not) information about the server.
@@ -120,7 +118,6 @@ class General(commands.Cog, name="general"):
         name="ping",
         description="Check if the bot is alive.",
     )
-    
     async def ping(self, context: Context) -> None:
         """
         Check if the bot is alive.
@@ -138,7 +135,6 @@ class General(commands.Cog, name="general"):
         name="invite",
         description="Get the invite link of the bot to be able to invite it.",
     )
-    
     async def invite(self, context: Context) -> None:
         """
         Get the invite link of the bot to be able to invite it.
@@ -155,6 +151,7 @@ class General(commands.Cog, name="general"):
             await context.send("I sent you a private message!")
         except discord.Forbidden:
             await context.send(embed=embed)
+
 
 async def setup(bot):
     await bot.add_cog(General(bot))

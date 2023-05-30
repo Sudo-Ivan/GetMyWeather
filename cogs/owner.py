@@ -3,6 +3,7 @@ from discord import app_commands
 from discord.ext import commands
 from discord.ext.commands import Context
 
+
 class Owner(commands.Cog, name="owner"):
     def __init__(self, bot):
         self.bot = bot

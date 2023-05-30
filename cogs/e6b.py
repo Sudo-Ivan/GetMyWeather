@@ -2,6 +2,7 @@ import math
 import discord
 from discord.ext import commands
 
+
 class E6B(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -10,7 +11,8 @@ class E6B(commands.Cog):
     async def wind_correction(self, ctx, tas: float, wind_speed: float, wind_direction: float, course: float):
         wind_angle = wind_direction - course
         wca = math.asin(wind_speed * math.sin(math.radians(wind_angle)) / tas)
-        gs = tas * math.cos(wca) + wind_speed * math.cos(math.radians(wind_angle))
+        gs = tas * math.cos(wca) + wind_speed * \
+            math.cos(math.radians(wind_angle))
         wca = math.degrees(wca)
 
         await ctx.send(f"Wind correction angle: {wca:.2f}°, Ground speed: {gs:.2f} knots")
@@ -18,7 +20,8 @@ class E6B(commands.Cog):
     @commands.hybrid_command()
     async def true_airspeed(self, ctx, ias: float, altitude: float, temperature: float):
         # Assuming temperature in Celsius, altitude in feet
-        tas = ias * math.sqrt((273 + temperature) / (273 + (15 - 2 * altitude / 1000)))
+        tas = ias * math.sqrt((273 + temperature) /
+                              (273 + (15 - 2 * altitude / 1000)))
 
         await ctx.send(f"True airspeed: {tas:.2f} knots")
 
@@ -57,10 +60,11 @@ class E6B(commands.Cog):
 
     @commands.hybrid_command()
     async def climb_descent_rate(self, ctx, distance: float, altitude_change: float, angle: float):
-        rate = (altitude_change / distance) * math.tan(math.radians(angle)) * 60
+        rate = (altitude_change / distance) * \
+            math.tan(math.radians(angle)) * 60
 
         await ctx.send(f"Climb/Descent rate: {rate:.2f} ft/min")
-    
+
     @commands.hybrid_command()
     async def fuel_consumption(self, ctx, flight_time: float, fuel_quantity: float):
         fuel_rate = fuel_quantity / flight_time
@@ -74,6 +78,6 @@ class E6B(commands.Cog):
 
         await ctx.send(f"Endurance: {endurance:.2f} hours")
 
+
 async def setup(bot):
     await bot.add_cog(E6B(bot))
-    

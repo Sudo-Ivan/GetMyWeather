@@ -26,19 +26,23 @@ class Weather(commands.Cog, name="weather"):
         capitalisedCity = city.capitalize()
         upperCaseCountry = country.upper()
 
-        geocodingParmeters = {'q': capitalisedCity + ',' + upperCaseCountry, 'appid': apiKey}
-        geocodingUrl = requests.get('http://api.openweathermap.org/geo/1.0/direct', params=geocodingParmeters)
+        geocodingParmeters = {'q': capitalisedCity +
+                              ',' + upperCaseCountry, 'appid': apiKey}
+        geocodingUrl = requests.get(
+            'http://api.openweathermap.org/geo/1.0/direct', params=geocodingParmeters)
 
         geocodingOutput = json.loads(geocodingUrl.content.decode())
         latitude = geocodingOutput[0]['lat']
         longditude = geocodingOutput[0]['lon']
 
-        requestParameters = {'lat': latitude, 'lon': longditude, 'exclude': 'alerts', 'units': unit, 'appid': apiKey}
-        requestUrl = requests.get('https://api.openweathermap.org/data/2.5/onecall', params=requestParameters)
+        requestParameters = {'lat': latitude, 'lon': longditude,
+                             'exclude': 'alerts', 'units': unit, 'appid': apiKey}
+        requestUrl = requests.get(
+            'https://api.openweathermap.org/data/2.5/onecall', params=requestParameters)
 
         jsonOutput = json.loads(requestUrl.content.decode())
         current_data = jsonOutput['current']
-        
+
         # Extract weather data from JSON
         currentTemperature = current_data['temp']
         weatherDescription = current_data['weather'][0]['description']
@@ -64,7 +68,8 @@ class Weather(commands.Cog, name="weather"):
         )
 
         embed.set_author(name='Requested by ' + ctx.author.display_name)
-        embed.set_thumbnail(url='https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png')
+        embed.set_thumbnail(
+            url='https://openweathermap.org/img/wn/' + weatherIcon + '@2x.png')
 
         embed.add_field(name='Weather Report for ' + capitalisedCity + ', ' + upperCaseCountry + ' Time- ' + local_time_str,
                         value='There will be **' + str(weatherDescription) + '** \nwith a current temperature of **' + str(currentTemperature) + '°' + temp_units_str + '**.\nThe sun will set at **' + str(sunset) + '** \nand rise at **' + str(sunrise) + '**,\na Humidity of **' + str(humidity) + '% ' + '**\nand pressure of **' + str(pressure) + '**hPa.\nThe wind speed is **' + wind_speed_str + wind_units_str + '**,\nand the wind direction is **' + str(windDirection) + wind_direction + '**.')
@@ -73,8 +78,9 @@ class Weather(commands.Cog, name="weather"):
 
         await ctx.send(embed=embed)
 
-        # Print the command usage information to the terminal window
-        print(now.strftime('%H:%M') + '  -  ' + str(ctx.message.author) + ' ran the commmand \'' + str(ctx.message.content) + '\'')
+        # Print the command usage information to the terminal windows
+        print(now.strftime('%H:%M') + '  -  ' + str(ctx.message.author) +
+              ' ran the commmand \'' + str(ctx.message.content) + '\'')
         print("weather command successfully executed")
 
 

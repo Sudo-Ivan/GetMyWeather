@@ -1,4 +1,5 @@
-#wind direction calculation based on degrees
+
+# wind direction calculation based on degrees
 def find_wind_direction(degrees):
     # Convert degrees to a value between 0 and 360
     degrees = (degrees + 360) % 360
@@ -19,6 +20,7 @@ def find_wind_direction(degrees):
         return " W "
     elif degrees >= 292.5 and degrees < 337.5:
         return " NW "
+
 
 def conv_wind_spd(speed, unit):
     # Convert wind speed from m/s to mph

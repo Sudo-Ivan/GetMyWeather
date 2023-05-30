@@ -1,6 +1,5 @@
-import math
-import discord
 from discord.ext import commands
+
 
 class FuelCalc(commands.Cog):
     def __init__(self, bot):
@@ -24,12 +23,15 @@ class FuelCalc(commands.Cog):
         fuel_usage = br / 60  # Convert lbs per hour to lbs per minute
         remaining_fuel = fuel_usage * remaining_fuel_mins
 
-        time_to_airbase = (distance_to_airbase / ground_speed) * 60  # Calculate time to airbase in minutes
+        # Calculate time to airbase in minutes
+        time_to_airbase = (distance_to_airbase / ground_speed) * 60
         fuel_for_distance = fuel_usage * time_to_airbase
 
         emergency_fuel = 35
-        bingo_fuel = ppc_descent_fuel + remaining_fuel + fuel_for_distance + emergency_fuel
+        bingo_fuel = ppc_descent_fuel + remaining_fuel + \
+            fuel_for_distance + emergency_fuel
         await ctx.send(f"UAV bingo fuel: {bingo_fuel:.2f} lbs.")
+
 
 async def setup(bot):
     await bot.add_cog(FuelCalc(bot))
